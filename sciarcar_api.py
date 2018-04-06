@@ -260,7 +260,7 @@ def has_trip_matched():
         if len(returnedList)==0:
             return '{"result":'+str([])+'}'
         else:
-            return '{"result":'+json.dumps(returnedList[0][0])+'}'
+            return '{"result":'+json.dumps(returnedList)+'}'
 
     except Exception as e:
         conn.close()
@@ -373,7 +373,7 @@ def get_potential_matches():
             HM["origin_long"] = str(ansr[i][6])
             HM["dest_lat"] = str(ansr[i][7])
             HM["dest_long"] =str(ansr[i][8])
-            
+
             query_origin = google_places.nearby_search(lat_lng={'lat': HM["origin_lat"], 'lng': HM["origin_long"]},radius=20)
             query_dest = google_places.nearby_search(lat_lng={'lat': HM["dest_lat"], 'lng': HM["dest_long"]},radius=20)
             if len(query_origin.raw_response['results'][0]['name']) and len(query_dest.raw_response['results'][0]['name']) > 0:
@@ -382,10 +382,6 @@ def get_potential_matches():
             else:
                 AM["origin"] = []
                 AM["dest"] = []
-            
-            AM["origin"] = "GREG"
-            AM["dest"] = "PECK"
-
 
             AM["num_seats"] = str(ansr[i][9])
             if thistripData[0][0] in ansr[i][2]:
